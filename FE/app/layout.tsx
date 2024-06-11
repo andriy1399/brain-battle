@@ -1,8 +1,20 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Rubik } from "next/font/google";
 import "./globals.css";
+import Header from "./components/Header";
+import ReactQueryProvider from "./utils/providers/ReactQueryProvider";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
+const rubik = Rubik({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-rubik",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +27,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className={`${inter.variable} ${rubik.variable}`}>
+      <body>
+        <ReactQueryProvider>
+          <Header />
+          {children}
+        </ReactQueryProvider>
+      </body>
     </html>
   );
 }

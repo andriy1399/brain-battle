@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import socket from "../socket";
+import socket from "@/socket";
+import { Button, Input } from "./components/elements";
 
 export default function Home() {
   const [roomCode, setRoomCode] = useState<string>("");
@@ -14,21 +15,32 @@ export default function Home() {
     router.push(`/party/${code}`);
   };
 
-  const joinRoom = () => {
+  const joinRoom = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     router.push(`/party/${roomCode}`);
   };
 
   return (
-    <div>
-      <h1>Brain Battle</h1>
-      <button onClick={createRoom}>Create Game</button>
-      <input
-        type="text"
-        placeholder="Enter room code"
-        value={roomCode}
-        onChange={(e) => setRoomCode(e.target.value)}
-      />
-      <button onClick={joinRoom}>Join Game</button>
+    <div className="container">
+      <h3 className="text-center mt-24">
+        Test your knowledge and challenge friends in an exciting multiplayer
+        quiz game!
+      </h3>
+      <div className="max-w-96 flex flex-col gap-4 mt-24 mx-auto">
+        <Button onClick={createRoom}>Create Game</Button>
+        <h5 className="text-center">OR</h5>
+        <form onSubmit={joinRoom} className="flex flex-col gap-4">
+          <Input
+            type="text"
+            placeholder="Enter room code"
+            value={roomCode}
+            onChange={(e) => setRoomCode(e.target.value)}
+          />
+          <Button variant="secondary" type="submit">
+            Join Game
+          </Button>
+        </form>
+      </div>
     </div>
   );
 }
