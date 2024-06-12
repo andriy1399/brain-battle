@@ -1,4 +1,4 @@
-import ClientPartyRoom from "@/app/components/ClientPartyRoom";
+import ClientPartyRoom from "@/app/components/pages/ClientPartyRoom";
 
 interface PartyRoomProps {
   params: { roomCode: string };
@@ -13,7 +13,6 @@ const PartyRoom = async ({ params }: PartyRoomProps) => {
 
   return (
     <div>
-      <h1>Room Code: {roomCode}</h1>
       <ClientPartyRoom roomCode={roomCode} />
     </div>
   );

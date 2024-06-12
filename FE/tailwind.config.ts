@@ -31,6 +31,8 @@ const config: Config = {
           "0 0 5px rgba(26, 115, 232, 0.3), 0 0 10px rgba(26, 115, 232, 0.3), 0 0 20px #1A73E8",
         "neon-primary-hover":
           "0 0 5px rgba(26, 115, 232, 0.7), 0 0 10px rgba(26, 115, 232, 0.7), 0 0 20px #1A73E8",
+        "neon-primary-sm":
+          "0 0 2px rgba(26, 115, 232, 0.3), 0 0 5px rgba(26, 115, 232, 0.3), 0 0 8px #1A73E8",
         "neon-secondary":
           "0 0 5px rgba(255, 64, 129, 0.3), 0 0 10px rgba(255, 64, 129, 0.3), 0 0 20px #FF4081",
         "neon-secondary-hover":

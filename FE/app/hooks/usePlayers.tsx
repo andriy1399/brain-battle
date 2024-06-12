@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "../api/axiosConfig";
-import { Player } from "../components/ClientPartyRoom";
+import { IPlayer } from "../utils/types/IPlayer";
 
 const fetchPlayers = async (roomCode: string) => {
-  const { data } = await axios.get<Player[]>(`/rooms/${roomCode}/players`);
+  const { data } = await axios.get<IPlayer[]>(`/rooms/${roomCode}/players`);
   return data;
 };
 
