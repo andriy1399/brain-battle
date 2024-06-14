@@ -13,12 +13,13 @@ interface LeaveRoomData {
   roomCode: string;
 }
 
-const getRandomRole = async (): Promise<IRole | null> => {
-  const rolesCount = await Role.countDocuments();
-  if (rolesCount === 0) return null;
-  const randomIndex = Math.floor(Math.random() * rolesCount);
-  const randomRole = await Role.findOne().skip(randomIndex);
-  return randomRole as IRole;
+const getRandomRole = async (
+  excludedRoles: string[] = []
+): Promise<IRole | null> => {
+  const roles = await Role.find({ role: { $nin: excludedRoles } });
+  if (roles.length === 0) return null;
+  const randomIndex = Math.floor(Math.random() * roles.length);
+  return roles[randomIndex] as IRole;
 };
 
 // Socket event handlers
@@ -51,7 +52,13 @@ const handleJoinRoom = async (
 
       if (!existingPlayer) {
         const isHost = room.players.length === 0;
-        const role = await getRandomRole();
+        const existingRoles = room.players.map((player) => player.role?.role);
+        const role = await getRandomRole(existingRoles);
+        if (!role) {
+          socket.emit("error", "No available roles");
+          return;
+        }
+
         const newPlayer: PlayerDocument = {
           id: socket.id,
           nickname,
